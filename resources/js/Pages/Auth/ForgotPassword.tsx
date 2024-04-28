@@ -1,18 +1,28 @@
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import TextInput from '@/Components/TextInput.tsx';
 import { Head, useForm } from '@inertiajs/react';
-
-export default function ForgotPassword({ status }) {
+import React from "react";
+import axios from "axios";
+import {toShowNotification} from "@/utils/helpers.tsx";
+type ResponseNotification  = {type : string , message : string}
+export default function ForgotPassword({ status } : {status: string}) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
 
-    const submit = (e) => {
+    const submit = (e : React.FormEvent) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        axios.post('/forgot-password', data)
+            .then(response=>{
+                toShowNotification(response.data)
+            })
+
+            .catch(function (error) {
+                toShowNotification({type: 'error', message: error.message});
+        })
     };
 
     return (

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use mysql_xdevapi\Exception;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -20,20 +21,33 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
         ]);
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse| \Illuminate\Http\JsonResponse
+
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        try{
+            $request->authenticate();
+            $request->session()->regenerate();
+            return redirect()->intended(route('dashboard', absolute: false));
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        }catch (\Exception $exception){
+            return response()->json([
+                'type' => 'error',
+                'message' => $exception->getMessage()], 400);
+        }
+
+
+
+
+
+//
+//        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**

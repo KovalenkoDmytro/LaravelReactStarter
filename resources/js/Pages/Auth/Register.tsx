@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
+import InputLabel from '@/Components/InputLabel.tsx';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import TextInput from '@/Components/TextInput.tsx';
+import {Head, Link, router, useForm} from '@inertiajs/react';
+import axios from "axios";
+import {toShowNotification} from "@/utils/helpers.tsx";
 
-export default function ResetPassword({ token, email }) {
+export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        token: token,
-        email: email,
+        name: '',
+        email: '',
         password: '',
         password_confirmation: '',
     });
@@ -20,18 +22,43 @@ export default function ResetPassword({ token, email }) {
         };
     }, []);
 
-    const submit = (e) => {
+    const submit = (e : {preventDefault : ()=>void}) => {
         e.preventDefault();
 
-        post(route('password.store'));
+        axios.post('register', data)
+            .then(function (response) {
+                if(response.status === 200){
+                    window.location.href= `${window.location.origin}/login`
+                }
+            })
+            .catch(function (error) {
+                toShowNotification({type: 'error', message: error.response.data.message});
+            });
     };
 
     return (
         <GuestLayout>
-            <Head title="Reset Password" />
+            <Head title="Register" />
 
             <form onSubmit={submit}>
                 <div>
+                    <InputLabel htmlFor="name" value="Name" />
+
+                    <TextInput
+                        id="name"
+                        name="name"
+                        value={data.name}
+                        className="mt-1 block w-full"
+                        autoComplete="name"
+                        isFocused={true}
+                        onChange={(e) => setData('name', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.name} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -42,6 +69,7 @@ export default function ResetPassword({ token, email }) {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
+                        required
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -57,8 +85,8 @@ export default function ResetPassword({ token, email }) {
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        isFocused={true}
                         onChange={(e) => setData('password', e.target.value)}
+                        required
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -68,21 +96,29 @@ export default function ResetPassword({ token, email }) {
                     <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
 
                     <TextInput
-                        type="password"
                         id="password_confirmation"
+                        type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
+                        required
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
+                    <Link
+                        href={'login'}
+                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        Already registered?
+                    </Link>
+
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
+                        Register
                     </PrimaryButton>
                 </div>
             </form>
