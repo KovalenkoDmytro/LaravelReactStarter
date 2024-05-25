@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import * as React from 'react';
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {StrictMode} from "react";
 const queryClient = new QueryClient()
 // @ts-ignore
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -20,7 +21,9 @@ createInertiaApp({
 
         root.render(
             <QueryClientProvider client={queryClient}>
-                <App {...props} />
+                <StrictMode>
+                    <App {...props} />
+                </StrictMode>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
         );
