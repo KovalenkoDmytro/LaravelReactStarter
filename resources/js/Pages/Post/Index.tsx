@@ -3,11 +3,11 @@ import {Fragment} from "react";
 import axios from "axios";
 import Post from "@type/Interfaces/Post";
 
-export default function Posts() {
+export default function Index() {
 
-    const getPosts = async ()=> {
+    const getPosts = async () => {
         // Make a request for a user with a given ID
-        const response = await  axios.get('https://jsonplaceholder.typicode.com/posts')
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
         return response.data;
     }
 
@@ -16,6 +16,7 @@ export default function Posts() {
         queryFn: getPosts,
     })
 
+    //todo make one component for this below
     if (isPending) {
         return <span>Loading...</span>
     }

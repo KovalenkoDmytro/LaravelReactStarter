@@ -1,17 +1,17 @@
-import { Link, Head } from '@inertiajs/react';
+import {Head, Link} from '@inertiajs/react';
 import * as React from 'react';
 import {Fragment} from "react";
-import Posts from "@/Pages/Posts/Posts.tsx";
-import Application from "@/Pages/Application.tsx";
 
 export default function Welcome() {
 
     return (
-        <Application>
+        <Fragment>
             <Head title="Welcome" />
             <h1>Welcome Page</h1>
 
-            <Posts/>
-        </Application>
+            <nav className={'navigation'}>
+                <Link href="/posts">Posts</Link>
+            </nav>
+        </Fragment>
     );
 }
