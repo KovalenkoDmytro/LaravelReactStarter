@@ -27,7 +27,7 @@ export default function PhotoIndex() {
     return(
         <Fragment>
             <h1>Photos list</h1>
-            <ul>
+            <ul className={'photo_items'}>
                 {data.map((photo: Photo, index: number) => (
                     <li key={index}>
                         <p>{photo.alt_description}</p>
