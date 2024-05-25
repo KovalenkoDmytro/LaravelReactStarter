@@ -11,6 +11,7 @@ export default function Welcome() {
 
             <nav className={'navigation'}>
                 <Link href="/posts">Posts</Link>
+                <Link href="/photos">Photos</Link>
             </nav>
         </Fragment>
     );

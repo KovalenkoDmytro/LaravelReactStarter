@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/dashboard', function () {
 
 
 Route::resource('/posts', PostController::class);
+Route::resource('/photos', PhotoController::class);
 
 
 Route::middleware('auth')->group(function () {
