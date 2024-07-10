@@ -3,30 +3,40 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "lint": "stylelint 'resources/**/*.{scss,css}'"
     },
     "devDependencies": {
-        "@headlessui/react": "^1.4.2",
-        "@inertiajs/react": "^1.0.0",
-        "@tanstack/eslint-plugin-query": "^5.28.11",
+        "@headlessui/react": "^2.1.2",
+        "@inertiajs/react": "^1.2.0",
+        "@tanstack/eslint-plugin-query": "^5.50.1",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.12",
-        "axios": "^1.6.8",
+        "axios": "^1.7.2",
+        "globals": "^15.8.0",
         "laravel-vite-plugin": "^1.0",
-        "postcss": "^8.4.31",
+        "postcss": "^8.4.39",
+        "postcss-lit": "^1.1.1",
+        "prettier": "^3.3.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "sass": "^1.77.2",
+        "sass": "^1.77.6",
+        "stylelint": "^16.6.1",
+        "stylelint-config-standard-scss": "^13.1.0",
         "ts-loader": "^9.5.1",
-        "typescript": "^5.4.5",
+        "typescript": "^5.5.3",
+        "typescript-eslint": "^7.16.0",
         "vite": "^5.0"
     },
     "dependencies": {
-        "@tanstack/react-query": "^5.32.0",
-        "@tanstack/react-query-devtools": "^5.35.1",
-        "@types/react": "^18.3.1",
+        "@tanstack/react-query": "^5.50.1",
+        "@tanstack/react-query-devtools": "^5.50.1",
+        "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
-        "sweetalert2": "^11.10.8",
+        "postcss-scss": "^4.0.9",
+        "prettier-stylelint": "^0.4.2",
+        "stylelint-scss": "^6.4.0",
+        "sweetalert2": "^11.12.2",
         "vite-tsconfig-paths": "^4.3.2"
     }
 }
