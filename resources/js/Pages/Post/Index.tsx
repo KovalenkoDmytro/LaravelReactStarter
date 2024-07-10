@@ -1,31 +1,32 @@
-import { useQuery } from '@tanstack/react-query'
-import {Fragment} from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Fragment } from "react";
 import axios from "axios";
 import Post from "@type/Interfaces/Post";
 
 export default function Index() {
-
     const getPosts = async () => {
         // Make a request for a user with a given ID
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        const response = await axios.get(
+            "https://jsonplaceholder.typicode.com/posts",
+        );
         return response.data;
-    }
+    };
 
     const { isPending, isError, data, error } = useQuery({
-        queryKey: ['posts'],
+        queryKey: ["posts"],
         queryFn: getPosts,
-    })
+    });
 
     //todo make one component for this below
     if (isPending) {
-        return <span>Loading...</span>
+        return <span>Loading...</span>;
     }
 
     if (isError) {
-        return <span>Error: {error.message}</span>
+        return <span>Error: {error.message}</span>;
     }
 
-    return(
+    return (
         <Fragment>
             <ul>
                 {data.map((post: Post, index: number) => (
@@ -35,5 +36,5 @@ export default function Index() {
                 ))}
             </ul>
         </Fragment>
-    )
+    );
 }

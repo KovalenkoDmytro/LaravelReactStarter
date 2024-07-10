@@ -1,5 +1,5 @@
 export default {
-    syntax: 'postcss-scss',
+    syntax: "postcss-scss",
     plugins: {
         autoprefixer: {},
     },

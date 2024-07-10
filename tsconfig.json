@@ -19,6 +19,11 @@
             "@type/*": ["./resources/ts/*"]
         }
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts", "vite.config.ts"],
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.tsx",
+        "resources/js/**/*.d.ts",
+        "vite.config.ts"
+    ],
     "exclude": ["node_modules"]
 }

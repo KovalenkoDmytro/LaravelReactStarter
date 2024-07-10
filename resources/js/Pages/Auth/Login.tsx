@@ -1,48 +1,52 @@
-import React, { useEffect } from 'react';
-import Checkbox from '@/Components/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel.tsx';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput.tsx';
-import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useEffect } from "react";
+import Checkbox from "@/Components/Checkbox";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel.tsx";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput.tsx";
+import { Head, Link, useForm } from "@inertiajs/react";
 import axios from "axios";
-import {toShowNotification} from "@/utils/helpers.tsx";
+import { toShowNotification } from "@/utils/helpers.tsx";
 
-export default function Login({ canResetPassword } :{  canResetPassword : string }) {
+export default function Login({
+    canResetPassword,
+}: {
+    canResetPassword: string;
+}) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
         remember: false,
     });
 
     useEffect(() => {
-
-
         return () => {
-            reset('password');
+            reset("password");
         };
     }, []);
 
     const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
-        axios.post('login', data)
+        axios
+            .post("login", data)
             .then(function (response) {
-                if(response.status === 200){
-                    window.location.href= `${window.location.origin}/login`
+                if (response.status === 200) {
+                    window.location.href = `${window.location.origin}/login`;
                 }
-        })
+            })
             .catch(function (error) {
-                toShowNotification({type: 'error', message: error.response.data.message});
+                toShowNotification({
+                    type: "error",
+                    message: error.response.data.message,
+                });
             });
     };
 
     return (
         <GuestLayout>
             <Head title="Log in" />
-
-
 
             <form onSubmit={submit}>
                 <div>
@@ -56,7 +60,7 @@ export default function Login({ canResetPassword } :{  canResetPassword : string
                         className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => setData("email", e.target.value)}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
@@ -72,7 +76,7 @@ export default function Login({ canResetPassword } :{  canResetPassword : string
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
+                        onChange={(e) => setData("password", e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -83,16 +87,20 @@ export default function Login({ canResetPassword } :{  canResetPassword : string
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e : React.ChangeEvent<HTMLInputElement>) => setData('remember', e.target.checked)}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>,
+                            ) => setData("remember", e.target.checked)}
                         />
-                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
+                        <span className="ms-2 text-sm text-gray-600">
+                            Remember me
+                        </span>
                     </label>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
                     {canResetPassword && (
                         <Link
-                            href={'forgot-password'}
+                            href={"forgot-password"}
                             className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Forgot your password?
