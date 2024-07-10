@@ -4,12 +4,12 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel.tsx";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput.tsx";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import axios from "axios";
-import { toShowNotification } from "@/utils/helpers.tsx";
+import { toShowNotification } from "@/utils/helpers.ts";
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, processing, errors, reset } = useForm({
         name: "",
         email: "",
         password: "",

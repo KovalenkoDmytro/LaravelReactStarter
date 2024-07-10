@@ -1,4 +1,5 @@
-import { forwardRef, useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
+import * as events from "node:events";
 
 type Props = {
     id: string;
@@ -8,7 +9,7 @@ type Props = {
     className?: string;
     autoComplete?: string;
     isFocused?: boolean;
-    onChange: (e: any) => void;
+    onChange: (e: events) => React.ChangeEvent<HTMLInputElement>;
     required?: boolean;
 };
 

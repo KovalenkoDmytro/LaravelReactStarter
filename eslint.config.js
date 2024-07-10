@@ -1,35 +1,31 @@
-import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import tseslint from 'typescript-eslint';
 import {fixupConfigRules} from "@eslint/compat";
+import globals from "globals";
 
-export default [
-    {
+
+export default tseslint.config({
         files: ["resources/js/**/*.{js,jsx,ts,tsx}"],
-        ...pluginJs.configs.recommended,
-    },
-    {
-
         settings: {
             react: {
                 version: "detect"
             }
-        }
-    },
-    {
+        },
         languageOptions: {
-            parserOptions: {
-                ecmaFeatures: {jsx: true}
-            },
+            parser: tseslint.parser,
+            ecmaVersion: 2022,
             globals: globals.browser,
-        }
-    },
-    ...fixupConfigRules(pluginReactConfig),
-
-    {
+            parserOptions: {ecmaFeatures: {jsx: true}}
+        },
+        extends: [
+            pluginJs.configs.recommended,
+            ...tseslint.configs.recommended,
+            ...fixupConfigRules(pluginReactConfig),
+        ],
         rules: {
             "react/react-in-jsx-scope": "off",
             "react/jsx-uses-react": "off"
         }
     }
-];
+);

@@ -1,10 +1,19 @@
+import React, {ReactNode} from "react";
+
+type propsType = {
+    children: ReactNode,
+    type?: string,
+    className?: string,
+    disabled? : boolean,
+}
+
 export default function SecondaryButton({
     type = "button",
     className = "",
     disabled,
     children,
     ...props
-}) {
+} : propsType) {
     return (
         <button
             {...props}

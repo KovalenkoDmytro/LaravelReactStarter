@@ -5,8 +5,9 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput.js";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import {routing} from "@/utils/helpers.js";
 
-export default function UpdatePasswordForm({ className = "" }) {
+export default function UpdatePasswordForm({ className = "" } : {className?: string,}) {
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
@@ -27,7 +28,7 @@ export default function UpdatePasswordForm({ className = "" }) {
     const updatePassword = (e) => {
         e.preventDefault();
 
-        put(route("password.update"), {
+        put(routing.setRoute("password.update"), {
             preserveScroll: true,
             onSuccess: () => reset(),
             onError: (errors) => {

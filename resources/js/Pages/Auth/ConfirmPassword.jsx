@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel.js";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
+import {routing} from "@/utils/helpers.js";
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -20,7 +21,7 @@ export default function ConfirmPassword() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("password.confirm"));
+        post(routing.setRoute("password.confirm"));
     };
 
     return (

@@ -1,10 +1,11 @@
 import { Head, Link } from "@inertiajs/react";
 import React from "react";
-import { Fragment } from "react";
+
 
 export default function Welcome() {
+
     return (
-        <Fragment>
+        <main>
             <Head title="Welcome" />
             <h1>Welcome Page</h1>
 
@@ -12,6 +13,6 @@ export default function Welcome() {
                 <Link href="/posts">Posts</Link>
                 <Link href="/photos">Photos</Link>
             </nav>
-        </Fragment>
+        </main>
     );
 }

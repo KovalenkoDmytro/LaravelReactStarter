@@ -1,5 +1,14 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import {ReactNode} from "react";
+
+type propsType = {
+    children: ReactNode,
+    show?: boolean,
+    maxWidth?: string,
+    closeable? : boolean,
+    onClose : React.MouseEventHandler<HTMLButtonElement>
+}
 
 export default function Modal({
     children,
@@ -7,7 +16,7 @@ export default function Modal({
     maxWidth = "2xl",
     closeable = true,
     onClose = () => {},
-}) {
+}: propsType) {
     const close = () => {
         if (closeable) {
             onClose();

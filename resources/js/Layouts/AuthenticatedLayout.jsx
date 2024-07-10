@@ -1,11 +1,19 @@
-import { useState } from "react";
+import React, {ReactNode, useState} from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import {routing} from "@/utils/helpers.js";
 
-export default function Authenticated({ user, header, children }) {
+
+type propsType = {
+    children: ReactNode,
+    header: ReactNode,
+    user: { name : string, email : string,},
+}
+
+export default function Authenticated({ user, header, children } : propsType) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -23,8 +31,8 @@ export default function Authenticated({ user, header, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
+                                    href={routing.setRoute("dashboard")}
+                                    active={routing.checkCurrent("dashboard")}
                                 >
                                     Dashboard
                                 </NavLink>
@@ -60,12 +68,12 @@ export default function Authenticated({ user, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            href={route("profile.edit")}
+                                            href={routing.setRoute("profile.edit")}
                                         >
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route("logout")}
+                                            href={routing.setRoute("logout")}
                                             method="post"
                                             as="button"
                                         >
@@ -127,8 +135,8 @@ export default function Authenticated({ user, header, children }) {
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
+                            href={routing.setRoute("dashboard")}
+                            active={routing.checkCurrent("dashboard")}
                         >
                             Dashboard
                         </ResponsiveNavLink>
@@ -145,12 +153,12 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            <ResponsiveNavLink href={routing.setRoute("profile.edit")}>
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
-                                href={route("logout")}
+                                href={routing.setRoute("logout")}
                                 as="button"
                             >
                                 Log Out

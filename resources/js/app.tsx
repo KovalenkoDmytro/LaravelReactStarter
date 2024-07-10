@@ -8,10 +8,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 const queryClient = new QueryClient();
-// @ts-ignore
+
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>

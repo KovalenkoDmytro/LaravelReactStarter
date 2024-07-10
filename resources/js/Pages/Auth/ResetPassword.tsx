@@ -6,7 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
 import axios from "axios";
-import { toShowNotification } from "@/utils/helpers.tsx";
+import { toShowNotification } from "@/utils/helpers.ts";
 
 export default function ResetPassword({
     token,
@@ -15,7 +15,7 @@ export default function ResetPassword({
     token: string;
     email: string;
 }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, processing, errors, reset } = useForm({
         token: token,
         email: email,
         password: "",

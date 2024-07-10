@@ -1,9 +1,17 @@
+import {ReactNode} from "react";
+
+type propsType = {
+    disabled?: boolean,
+    children?: ReactNode,
+    className?: string,
+}
+
 export default function PrimaryButton({
     className = "",
     disabled,
     children,
     ...props
-}) {
+} :propsType) {
     return (
         <button
             {...props}

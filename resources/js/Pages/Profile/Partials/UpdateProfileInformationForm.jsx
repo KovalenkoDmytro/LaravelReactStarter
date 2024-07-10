@@ -4,12 +4,21 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput.js";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import {routing} from "@/utils/helpers.js";
+
+
+type propsType = {
+    status?: string,
+    className?: string,
+    mustVerifyEmail? : boolean
+}
+
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className = "",
-}) {
+} : propsType) {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -21,7 +30,7 @@ export default function UpdateProfileInformation({
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route("profile.update"));
+        patch(routing.setRoute("profile.update"));
     };
 
     return (
@@ -32,7 +41,7 @@ export default function UpdateProfileInformation({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Update your account&apos;s profile information and email address.
                 </p>
             </header>
 
@@ -74,7 +83,7 @@ export default function UpdateProfileInformation({
                         <p className="text-sm mt-2 text-gray-800">
                             Your email address is unverified.
                             <Link
-                                href={route("verification.send")}
+                                href={routing.setRoute("verification.send")}
                                 method="post"
                                 as="button"
                                 className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

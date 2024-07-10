@@ -6,8 +6,9 @@ import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput.js";
 import { useForm } from "@inertiajs/react";
+import {routing} from "@/utils/helpers.ts";
 
-export default function DeleteUserForm({ className = "" }) {
+export default function DeleteUserForm({ className = "" } : {className? : string}) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
     const passwordInput = useRef();
 
@@ -29,7 +30,7 @@ export default function DeleteUserForm({ className = "" }) {
     const deleteUser = (e) => {
         e.preventDefault();
 
-        destroy(route("profile.destroy"), {
+        destroy(routing.setRoute("profile.destroy"), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => passwordInput.current.focus(),

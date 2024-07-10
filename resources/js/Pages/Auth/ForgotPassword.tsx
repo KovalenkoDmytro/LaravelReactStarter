@@ -5,10 +5,10 @@ import TextInput from "@/Components/TextInput.tsx";
 import { Head, useForm } from "@inertiajs/react";
 import React from "react";
 import axios from "axios";
-import { toShowNotification } from "@/utils/helpers.tsx";
-type ResponseNotification = { type: string; message: string };
+import { toShowNotification } from "@/utils/helpers.ts";
+
 export default function ForgotPassword({ status }: { status: string }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, processing, errors } = useForm({
         email: "",
     });
 

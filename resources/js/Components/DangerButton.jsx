@@ -1,9 +1,17 @@
+import {ReactNode} from "react";
+
+type propsType = {
+    className : string,
+    disabled?: boolean,
+    children?: ReactNode;
+}
+
 export default function DangerButton({
     className = "",
     disabled,
     children,
     ...props
-}) {
+} : propsType) {
     return (
         <button
             {...props}

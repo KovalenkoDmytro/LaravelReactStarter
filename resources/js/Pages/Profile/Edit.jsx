@@ -5,7 +5,16 @@ import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationFor
 import { Head } from "@inertiajs/react";
 import React from "react";
 
-export default function Edit({ auth, mustVerifyEmail, status }) {
+type propsType = {
+    auth : {
+        user : string,
+        email : string,
+    },
+    mustVerifyEmail : boolean,
+    status: string
+}
+
+export default function Edit({ auth, mustVerifyEmail, status } : propsType) {
     return (
         <AuthenticatedLayout
             user={auth.user}
