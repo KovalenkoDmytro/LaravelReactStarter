@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
+import GuestLayout from "@/Layouts/GuestLayout.tsx";
+import InputError from "@/Components/InputError.tsx";
 import InputLabel from "@/Components/InputLabel.tsx";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/PrimaryButton.tsx";
 import TextInput from "@/Components/TextInput.tsx";
-import { Head, Link, useForm } from "@inertiajs/react";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
 import axios from "axios";
 import { toShowNotification } from "@/utils/helpers.ts";
 
@@ -16,6 +16,8 @@ export default function Register() {
         password_confirmation: "",
     });
 
+    const props = usePage().props
+
     useEffect(() => {
         return () => {
             reset("password", "password_confirmation");
@@ -25,19 +27,12 @@ export default function Register() {
     const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
-        axios
-            .post("register", data)
-            .then(function (response) {
-                if (response.status === 200) {
-                    window.location.href = `${window.location.origin}/login`;
-                }
-            })
-            .catch(function (error) {
-                toShowNotification({
-                    type: "error",
-                    message: error.response.data.message,
-                });
-            });
+
+        router.post('/register', {
+            _token: props.csrf_token,
+            ...data
+        })
+
     };
 
     return (

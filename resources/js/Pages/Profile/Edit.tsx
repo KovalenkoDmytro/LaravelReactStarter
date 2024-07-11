@@ -1,7 +1,7 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import DeleteUserForm from "./Partials/DeleteUserForm";
-import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
-import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.js";
+import DeleteUserForm from "./Partials/DeleteUserForm.tsx";
+import UpdatePasswordForm from "./Partials/UpdatePasswordForm.tsx";
+import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm.tsx";
 import { Head } from "@inertiajs/react";
 import React from "react";
 

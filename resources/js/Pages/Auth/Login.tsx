@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
-import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
+import Checkbox from "@/Components/Checkbox.tsx";
+import GuestLayout from "@/Layouts/GuestLayout.tsx";
+import InputError from "@/Components/InputError.tsx";
 import InputLabel from "@/Components/InputLabel.tsx";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/PrimaryButton.tsx";
 import TextInput from "@/Components/TextInput.tsx";
 import { Head, Link, useForm } from "@inertiajs/react";
 import axios from "axios";
-import { toShowNotification } from "@/utils/helpers.ts";
+import {routing, toShowNotification} from "@/utils/helpers.ts";
 
-export default function Login({
-    canResetPassword,
-}: {
-    canResetPassword: string;
-}) {
+export default function Login({canResetPassword,}: { canResetPassword: boolean; }) {
+
     const { data, setData, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -112,6 +109,8 @@ export default function Login({
                     </PrimaryButton>
                 </div>
             </form>
+
+            <Link href={routing.setRoute('register')}>Register</Link>
         </GuestLayout>
     );
 }

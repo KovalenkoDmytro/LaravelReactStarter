@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
+import GuestLayout from "@/Layouts/GuestLayout.tsx";
+import InputError from "@/Components/InputError.tsx";
 import InputLabel from "@/Components/InputLabel.js";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/PrimaryButton.tsx";
 import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
 import axios from "axios";

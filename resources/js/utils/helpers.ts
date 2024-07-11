@@ -1,4 +1,4 @@
-import {Swal} from "sweetalert2";
+import Swal from "sweetalert2";
 
 const toShowNotification = function (
     flash: { type: string; message: string },

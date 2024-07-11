@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
+import GuestLayout from "@/Layouts/GuestLayout.js";
+import InputError from "@/Components/InputError.js";
 import InputLabel from "@/Components/InputLabel.js";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/PrimaryButton.js";
 import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
 import {routing} from "@/utils/helpers.js";

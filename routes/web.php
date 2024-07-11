@@ -14,15 +14,17 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('home');
+})->middleware('auth')->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('/posts', PostController::class);
-Route::resource('/photos', PhotoController::class);
+
+Route::resource('/posts', PostController::class)->middleware(['auth', 'verified']);
+Route::resource('/photos', PhotoController::class)->middleware(['auth', 'verified']);
+
 
 
 Route::middleware('auth')->group(function () {
