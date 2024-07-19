@@ -1,0 +1,33 @@
+@mixin transition($sek: 0.15s) {
+    transition: all $sek cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@mixin mobile {
+    @media (width >= 360px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (width >= 768px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (width >= 1366px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (width >= 1536px) {
+        @content;
+    }
+}
+
+@mixin large-screen {
+    @media (width >= 1920px) {
+        @content;
+    }
+}

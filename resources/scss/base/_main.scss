@@ -1,0 +1,72 @@
+@charset "utf-8";
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+body {
+    color: $black;
+    font-family: $font-family;
+    font-weight: normal;
+    margin-top: 0;
+    font-size: 18px;
+}
+
+
+a {
+    all: unset;
+    text-decoration: none;
+    position: relative;
+    font-size: 16px;
+    cursor: pointer;
+    color: $link-color;
+
+    @include laptop {
+        &:not(.ab-item) {
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                height: 1px;
+                width: 100%;
+                background-color: transparent;
+
+                @include transition;
+            }
+        }
+
+        &:hover {
+            text-decoration: none;
+
+            &::before {
+                background-color: $black;
+            }
+        }
+
+        &.listing,
+        &.logo,
+        &.slick-arrow,
+        &.cluster_slide,
+        &.listing__link,
+        &.social-media-link {
+            &::before {
+                content: none;
+            }
+        }
+    }
+}
+
+.b-lazy {
+    max-width: 100%;
+    background-image: url('../../assets/img/icons/loading.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    @include transition();
+
+    &.b-error {
+        background-image: url('../../assets/img/icons/broken-image.png');
+    }
+
+    &.b-loaded {
+        background-image: initial;
+    }
+}

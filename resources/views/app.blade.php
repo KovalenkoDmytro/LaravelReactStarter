@@ -16,7 +16,7 @@
         @vite([
             'resources/js/app.tsx',
             "resources/js/pages/{$page['component']}.tsx",
-            'resources/style/app.scss'
+            'resources/scss/app.scss'
             ])
         @inertiaHead
     </head>

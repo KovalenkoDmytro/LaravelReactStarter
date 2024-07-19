@@ -39,7 +39,7 @@
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
         "postcss-scss": "^4.0.9",
-        "prettier-stylelint": "^0.4.2",
+        "stylelint-prettier": "^5.0.2",
         "stylelint-scss": "^6.4.0",
         "sweetalert2": "^11.12.2",
         "vite-tsconfig-paths": "^4.3.2"

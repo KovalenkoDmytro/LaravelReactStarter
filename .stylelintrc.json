@@ -1,9 +1,11 @@
 {
-    "extends": ["stylelint-config-standard-scss"],
+    "extends": ["stylelint-config-standard-scss", "stylelint-prettier/recommended"],
     "rules": {
+        "value-keyword-case": "lower",
+        "color-no-invalid-hex" : true,
+        "color-named": "never",
         "at-rule-no-unknown": null,
         "scss/at-rule-no-unknown": [true],
-        "color-named": "never",
         "color-hex-length": "long",
         "function-disallowed-list": ["rgb", "hsl"],
         "declaration-block-no-duplicate-properties": [
@@ -23,7 +25,6 @@
             "height": ["rem", "%", "vh", "px"],
             "width": ["rem", "%", "vw", "px"]
         },
-        "max-empty-lines": 1,
         "no-duplicate-selectors": true,
         "scss/dollar-variable-pattern": "^[a-z\\d](?:[a-z\\d]|-(?=[a-z\\d]))*$",
         "scss/selector-no-redundant-nesting-selector": true,
@@ -62,13 +63,12 @@
         "alpha-value-notation": null,
         "color-function-notation": null,
         "scss/no-global-function-names": null,
-        "value-keyword-case": null,
         "shorthand-property-no-redundant-values": null,
         "scss/operator-no-unspaced": null,
         "declaration-block-no-redundant-longhand-properties": null,
         "keyframes-name-pattern": null,
-        "number-max-precision": null,
         "scss/dollar-variable-empty-line-before": null,
-        "property-no-vendor-prefix": null
+        "property-no-vendor-prefix": null,
+        "prettier/prettier": [true, {"singleQuote": true, "tabWidth": 4}]
     }
 }
