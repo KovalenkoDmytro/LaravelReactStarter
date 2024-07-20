@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import InputError from "@/Components/InputError.tsx";
-import InputLabel from "@/Components/InputLabel.js";
-import PrimaryButton from "@/Components/PrimaryButton.tsx";
-import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
 import axios from "axios";
 import { toShowNotification } from "@/utils/helpers.ts";
@@ -52,9 +48,9 @@ export default function ResetPassword({
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <label htmlFor="email">Email  </label>
 
-                    <TextInput
+                    <input
                         id="email"
                         type="email"
                         name="email"
@@ -64,13 +60,13 @@ export default function ResetPassword({
                         onChange={(e) => setData("email", e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <p>{errors.email}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <label htmlFor="password">Password</label>
 
-                    <TextInput
+                    <input
                         id="password"
                         type="password"
                         name="password"
@@ -81,16 +77,13 @@ export default function ResetPassword({
                         onChange={(e) => setData("password", e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <p>{errors.password}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
+                    <label htmlFor="password_confirmation" >Confirm Password </label>
 
-                    <TextInput
+                    <input
                         type="password"
                         id="password_confirmation"
                         name="password_confirmation"
@@ -102,16 +95,13 @@ export default function ResetPassword({
                         }
                     />
 
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
+                    <p>{errors.password_confirmation}</p>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button  disabled={processing}>
                         Reset Password
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>

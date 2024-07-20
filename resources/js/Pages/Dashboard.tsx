@@ -1,11 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.tsx";
-import { Head } from "@inertiajs/react";
 import React, {useEffect} from "react";
 import {toShowNotification} from "@/utils/helpers.ts";
 
-export default function Dashboard({ auth , flash} : {auth : object, flash : {type: string, message: string} | undefined}) {
-
-    const { user } = auth;
+export default function Dashboard({ flash} : {flash : {type: string, message: string} | undefined}) {
 
     useEffect(() => {
         if(flash !== undefined){
@@ -15,15 +12,8 @@ export default function Dashboard({ auth , flash} : {auth : object, flash : {typ
     }, [flash]);
 
     return (
-        <AuthenticatedLayout
-            user={user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title="Dashboard" />
+        <AuthenticatedLayout pageTitle={'Dashboard'}>
+
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

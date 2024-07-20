@@ -1,12 +1,6 @@
 import { useEffect } from "react";
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import InputError from "@/Components/InputError.tsx";
-import InputLabel from "@/Components/InputLabel.tsx";
-import PrimaryButton from "@/Components/PrimaryButton.tsx";
-import TextInput from "@/Components/TextInput.tsx";
 import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
-import axios from "axios";
-import { toShowNotification } from "@/utils/helpers.ts";
 
 export default function Register() {
     const { data, setData, processing, errors, reset } = useForm({
@@ -41,9 +35,9 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <label htmlFor="name">Name</label>
 
-                    <TextInput
+                    <input
                         id="name"
                         name="name"
                         value={data.name}
@@ -54,13 +48,13 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <p>{errors.name}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <label htmlFor="email">Email</label>
 
-                    <TextInput
+                    <input
                         id="email"
                         type="email"
                         name="email"
@@ -71,13 +65,13 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <p>{errors.email}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <label htmlFor="password" >Password</label>
 
-                    <TextInput
+                    <input
                         id="password"
                         type="password"
                         name="password"
@@ -88,16 +82,13 @@ export default function Register() {
                         required
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <p>{errors.password}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
+                    <label htmlFor="password_confirmation">Confirm Password </label>
 
-                    <TextInput
+                    <input
                         id="password_confirmation"
                         type="password"
                         name="password_confirmation"
@@ -109,11 +100,7 @@ export default function Register() {
                         }
                         required
                     />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
+                    <p>{errors.password_confirmation}</p>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
@@ -124,9 +111,9 @@ export default function Register() {
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button disabled={processing}>
                         Register
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>

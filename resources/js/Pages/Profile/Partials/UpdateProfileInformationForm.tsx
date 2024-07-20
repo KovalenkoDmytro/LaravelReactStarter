@@ -1,7 +1,3 @@
-import InputError from "@/Components/InputError.js";
-import InputLabel from "@/Components/InputLabel.js";
-import PrimaryButton from "@/Components/PrimaryButton.js";
-import TextInput from "@/Components/TextInput.js";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import {routing} from "@/utils/helpers.js";
@@ -47,9 +43,9 @@ export default function UpdateProfileInformation({
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <label htmlFor="name">Name </label>
 
-                    <TextInput
+                    <input
                         id="name"
                         className="mt-1 block w-full"
                         value={data.name}
@@ -59,13 +55,13 @@ export default function UpdateProfileInformation({
                         autoComplete="name"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <p>{errors.name} </p>
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <label htmlFor="email">Email </label>
 
-                    <TextInput
+                    <input
                         id="email"
                         type="email"
                         className="mt-1 block w-full"
@@ -75,7 +71,7 @@ export default function UpdateProfileInformation({
                         autoComplete="username"
                     />
 
-                    <InputError className="mt-2" message={errors.email} />
+                    <p>{errors.email} </p>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
@@ -102,7 +98,7 @@ export default function UpdateProfileInformation({
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <button disabled={processing}>Save</button>
 
                     <Transition
                         show={recentlySuccessful}

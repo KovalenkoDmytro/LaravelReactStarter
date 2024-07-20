@@ -1,18 +1,18 @@
-import { Head, Link } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import React from "react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.tsx";
+
+
 
 
 export default function Welcome() {
-
     return (
-        <main>
-            <Head title="Welcome" />
-            <h1>Welcome Page</h1>
+        <AuthenticatedLayout pageTitle="Welcome">
 
             <nav className={"navigation"}>
                 <Link href="/posts">Posts</Link>
                 <Link href="/photos">Photos</Link>
             </nav>
-        </main>
+        </AuthenticatedLayout>
     );
 }

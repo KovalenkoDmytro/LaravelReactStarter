@@ -1,7 +1,4 @@
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import InputError from "@/Components/InputError.tsx";
-import PrimaryButton from "@/Components/PrimaryButton.tsx";
-import TextInput from "@/Components/TextInput.tsx";
 import { Head, useForm } from "@inertiajs/react";
 import React from "react";
 import axios from "axios";
@@ -43,7 +40,7 @@ export default function ForgotPassword({ status }: { status: string }) {
             )}
 
             <form onSubmit={submit}>
-                <TextInput
+                <input
                     id="email"
                     type="email"
                     name="email"
@@ -53,12 +50,12 @@ export default function ForgotPassword({ status }: { status: string }) {
                     onChange={(e) => setData("email", e.target.value)}
                 />
 
-                <InputError message={errors.email} className="mt-2" />
+               <p>errors.email</p>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button disabled={processing}>
                         Email Password Reset Link
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>

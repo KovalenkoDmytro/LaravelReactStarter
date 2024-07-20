@@ -1,10 +1,5 @@
 import { useRef, useState } from "react";
-import DangerButton from "@/Components/DangerButton.tsx";
-import InputError from "@/Components/InputError.js";
-import InputLabel from "@/Components/InputLabel.js";
 import Modal from "@/Components/Modal.tsx";
-import SecondaryButton from "@/Components/SecondaryButton.tsx";
-import TextInput from "@/Components/TextInput.js";
 import { useForm } from "@inertiajs/react";
 import {routing} from "@/utils/helpers.ts";
 
@@ -59,9 +54,9 @@ export default function DeleteUserForm({ className = "" } : {className? : string
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>
+            <button onClick={confirmUserDeletion}>
                 Delete Account
-            </DangerButton>
+            </button>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
@@ -77,13 +72,9 @@ export default function DeleteUserForm({ className = "" } : {className? : string
                     </p>
 
                     <div className="mt-6">
-                        <InputLabel
-                            htmlFor="password"
-                            value="Password"
-                            className="sr-only"
-                        />
+                        <label htmlFor="password">Password </label>
 
-                        <TextInput
+                        <input
                             id="password"
                             type="password"
                             name="password"
@@ -97,20 +88,18 @@ export default function DeleteUserForm({ className = "" } : {className? : string
                             placeholder="Password"
                         />
 
-                        <InputError
-                            message={errors.password}
-                            className="mt-2"
-                        />
+                        <p>{errors.password}</p>
                     </div>
 
                     <div className="mt-6 flex justify-end">
-                        <SecondaryButton onClick={closeModal}>
+                        <button onClick={closeModal}>
                             Cancel
-                        </SecondaryButton>
+                        </button>
 
-                        <DangerButton className="ms-3" disabled={processing}>
+                        <button disabled={processing}>
                             Delete Account
-                        </DangerButton>
+                        </button>
+
                     </div>
                 </form>
             </Modal>

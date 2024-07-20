@@ -1,9 +1,5 @@
 import { useEffect } from "react";
 import GuestLayout from "@/Layouts/GuestLayout.js";
-import InputError from "@/Components/InputError.js";
-import InputLabel from "@/Components/InputLabel.js";
-import PrimaryButton from "@/Components/PrimaryButton.js";
-import TextInput from "@/Components/TextInput.js";
 import { Head, useForm } from "@inertiajs/react";
 import {routing} from "@/utils/helpers.js";
 
@@ -35,9 +31,9 @@ export default function ConfirmPassword() {
 
             <form onSubmit={submit}>
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <label htmlFor="password">Password</label>
 
-                    <TextInput
+                    <input
                         id="password"
                         type="password"
                         name="password"
@@ -47,13 +43,13 @@ export default function ConfirmPassword() {
                         onChange={(e) => setData("password", e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <p>errors.password</p>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button disabled={processing}>
                         Confirm
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>

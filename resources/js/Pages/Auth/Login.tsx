@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import Checkbox from "@/Components/Checkbox.tsx";
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import InputError from "@/Components/InputError.tsx";
-import InputLabel from "@/Components/InputLabel.tsx";
-import PrimaryButton from "@/Components/PrimaryButton.tsx";
-import TextInput from "@/Components/TextInput.tsx";
 import { Head, Link, useForm } from "@inertiajs/react";
 import axios from "axios";
 import {routing, toShowNotification} from "@/utils/helpers.ts";
@@ -47,9 +42,9 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <label htmlFor="email">Email</label>
 
-                    <TextInput
+                    <input
                         id="email"
                         type="email"
                         name="email"
@@ -59,14 +54,13 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+                    <p>{errors.email}</p>
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <label htmlFor="password">Password </label>
 
-                    <TextInput
+                    <input
                         id="password"
                         type="password"
                         name="password"
@@ -75,19 +69,21 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    <p>{errors.password}</p>
                 </div>
 
                 <div className="block mt-4">
                     <label className="flex items-center">
-                        <Checkbox
+                        <input
+                            type="checkbox"
+                            id="remember"
                             name="remember"
                             checked={data.remember}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>,
                             ) => setData("remember", e.target.checked)}
                         />
+
                         <span className="ms-2 text-sm text-gray-600">
                             Remember me
                         </span>
@@ -104,13 +100,11 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+                    <button disabled={processing}>Log in</button>
                 </div>
             </form>
 
-            <Link href={routing.setRoute('register')}>Register</Link>
+            <Link href={routing.setRoute("register")}>Register</Link>
         </GuestLayout>
     );
 }
