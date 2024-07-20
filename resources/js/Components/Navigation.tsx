@@ -27,6 +27,9 @@ export default function Navigation() {
                             <Link href={routing.setRoute("home")} className={routing.checkCurrent("home") ? "link __active" : "link"}>
                                 Welcome
                             </Link>
+                            <Link href='/real-estate' className={"link"}>
+                                Real Estate
+                            </Link>
 
                         </div>
                     </div>

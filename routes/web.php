@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RealEstateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,6 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+
+Route::resource('/real-estate', RealEstateController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/posts', PostController::class)->middleware(['auth', 'verified']);
 Route::resource('/photos', PhotoController::class)->middleware(['auth', 'verified']);
