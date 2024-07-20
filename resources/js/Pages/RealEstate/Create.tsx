@@ -1,45 +1,92 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.tsx";
-import {useState} from "react";
-import Input from "@/Components/Input.tsx";
+import React, { useState } from "react";
+import { TextField } from "@mui/material";
 
-export default function Create(){
-
+export default function Create() {
     const [data, setData] = useState({
         name: "",
-        address : {
+        address: {
             city: "",
             postalCode: "",
-            street : "",
-            building: ""
+            street: "",
+            building: "",
         },
         shortDescription: "",
         longDescription: "",
-        parameters : [],
-        media : []
-    })
+        parameters: [],
+        media: [],
+    });
 
-    const setState = (name : string, value : string|[]) => {
-        setData(prevState => ({...prevState, [name]: value}));
-    }
+    const setState = (
+        name: string,
+        value: string | [],
+        addressValue = false,
+    ) => {
+        if (addressValue) {
+            setData((prevState) => ({
+                ...prevState,
+                address: { ...prevState.address, [name]: value },
+            }));
+        } else {
+            setData((prevState) => ({ ...prevState, [name]: value }));
+        }
+    };
 
-    //todo name  , input
+
     //todo short description ,textarea
     //todo long description , TinyMCE
     //todo parameters , dynamic inputs
     //todo images , file loader
-    //todo address for map , inputs
 
-    return(
+
+    return (
         <Authenticated pageTitle={"Create Real Estate"}>
-            <Input id="name" placeholder="Name" label="Name" onChange={(event)=>{
-                setState('name', event.target.value);
-            }}/>
+            <TextField
+                id="name"
+                label="Name"
+                value={data.name}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setState("name", event.target.value);
+                }}
+            />
 
+            <TextField
+                id="city"
+                label="city"
+                value={data.address.city}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setState("city", event.target.value, true);
+                }}
+            />
 
+            <TextField
+                id="postalCode"
+                label="postalCode"
+                value={data.address.postalCode}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setState("postalCode", event.target.value, true);
+                }}
+            />
 
+            <TextField
+                id="street"
+                label="street"
+                value={data.address.street}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setState("street", event.target.value, true);
+                }}
+            />
 
+            <TextField
+                id="building"
+                label="building"
+                value={data.address.building}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setState("building", event.target.value, true);
+                }}
+            />
 
 
         </Authenticated>
-    )
+    );
 }
