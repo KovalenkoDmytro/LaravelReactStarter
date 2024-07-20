@@ -16,7 +16,6 @@ export default defineConfig(() => {
         ],
         resolve: {
             alias: {
-                '@mui/styled-engine': '@mui/styled-engine-sc',
                 "@": path.resolve(__dirname, "./resources/js"),
                 "@type": path.resolve(__dirname, "./resources/ts"),
             },

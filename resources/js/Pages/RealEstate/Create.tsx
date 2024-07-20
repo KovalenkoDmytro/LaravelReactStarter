@@ -1,6 +1,7 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.tsx";
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
+import { Editor } from '@tinymce/tinymce-react';
 
 export default function Create() {
     const [data, setData] = useState({
@@ -86,7 +87,14 @@ export default function Create() {
                 }}
             />
 
-
+            <Editor
+                apiKey='y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0'
+                init={{
+                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                }}
+                initialValue="Welcome to TinyMCE!"
+            />
         </Authenticated>
     );
 }
