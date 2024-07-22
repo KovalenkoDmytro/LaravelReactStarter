@@ -1,7 +1,8 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.tsx";
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { Editor } from '@tinymce/tinymce-react';
+import { Editor } from "@tinymce/tinymce-react";
+import ParametersCreator from "@/Components/ParametersCreator.tsx";
 
 export default function Create() {
     const [data, setData] = useState({
@@ -33,12 +34,8 @@ export default function Create() {
         }
     };
 
-
-    //todo short description ,textarea
-    //todo long description , TinyMCE
     //todo parameters , dynamic inputs
     //todo images , file loader
-
 
     return (
         <Authenticated pageTitle={"Create Real Estate"}>
@@ -88,12 +85,37 @@ export default function Create() {
             />
 
             <Editor
-                apiKey='y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0'
+                apiKey="y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0"
                 init={{
-                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
-                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                    plugins:
+                        "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker",
+                    toolbar:
+                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
                 }}
                 initialValue="Welcome to TinyMCE!"
+                onEditorChange={(value: string) => {
+                    setState("longDescription", value);
+                }}
+            />
+
+            <Editor
+                apiKey="y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0"
+                init={{
+                    plugins:
+                        "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker",
+                    toolbar:
+                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
+                }}
+                initialValue="Short description"
+                onEditorChange={(value: string) => {
+                    setState("shortDescription", value);
+                }}
+            />
+
+            <ParametersCreator
+                onChange={(value: []) => {
+                    setState("parameters", value);
+                }}
             />
         </Authenticated>
     );
