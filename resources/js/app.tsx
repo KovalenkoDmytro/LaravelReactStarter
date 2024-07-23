@@ -26,7 +26,7 @@ createInertiaApp({
         root.render(
             <QueryClientProvider client={queryClient}>
                 <StrictMode>
-                    <App {...props} />
+                        <App {...props} />
                 </StrictMode>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>,

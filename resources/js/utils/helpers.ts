@@ -1,12 +1,13 @@
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 const toShowNotification = function (
     flash: { type: string; message: string },
     settings?: object,
+    onTimeOut?: ()=>void,
 ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    Swal.fire({
+    withReactContent(Swal).fire({
         toast: true,
         position: "top-end",
         showConfirmButton: false,
@@ -19,7 +20,11 @@ const toShowNotification = function (
             toast.addEventListener("mouseleave", Swal.resumeTimer);
         },
         ...settings,
-    }).then(() => () => {});
+    }).then(() => {
+        if(onTimeOut!== undefined){
+            onTimeOut()
+        }
+    });
 }
 
 const routing = {
@@ -28,7 +33,38 @@ const routing = {
     },
     checkCurrent : function (path: string): boolean {
         return route().current(path)
-    }
+    },
 }
 
-export { toShowNotification, setRoute, routing };
+const  toCreate = async ( url : string, data : object) => {
+
+
+    const redirect = function (){
+        window.location.href = `/${url}`
+    }
+
+    return await axios.post(`/${url}`, {...data}, {})
+        .then(response =>{
+            toShowNotification({ type: response.data.type, message: response.data.message }, {}, redirect )
+        }
+
+    )
+        .catch(error => {
+            if (error.response) {
+
+                const errors = error.response.data.errors;
+
+                const message = Object.values(errors).flat().toString()
+
+                toShowNotification({ type: "error", message })
+
+                return errors
+
+            }
+        })
+
+
+
+};
+
+export { toShowNotification, routing, toCreate };

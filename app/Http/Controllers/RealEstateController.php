@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRealEstateRequest;
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class RealEstateController extends Controller
@@ -27,9 +29,35 @@ class RealEstateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRealEstateRequest $request): \Illuminate\Http\JsonResponse
     {
-        //
+
+        try {
+
+            $validated = $request->validated();
+            $validated = [...$validated, ...$validated['address'], 'parameters' => count($validated['parameters']) > 0 ? json_encode($validated['parameters']) : ''];
+            unset($validated['address']);
+
+            RealEstate::create($validated);
+
+            return response()->json(
+                ['message' => 'SuccessResult',
+                    'type' => 'success',
+                    'status' => 200,
+                ]
+            );
+
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+
+            return response()->json(
+                ['message' => $exception->getMessage(),
+                    'type' => 'error',
+                    'status' => $exception->getCode(),
+                ]
+            );
+        }
+
     }
 
     /**
@@ -37,7 +65,7 @@ class RealEstateController extends Controller
      */
     public function show(RealEstate $realEstate)
     {
-        return Inertia::render('RealEstate/Show', ['id' => $id]);
+        return Inertia::render('RealEstate/Show');
     }
 
     /**
@@ -45,7 +73,7 @@ class RealEstateController extends Controller
      */
     public function edit(RealEstate $realEstate)
     {
-        return Inertia::render('RealEstate/Edit', ['id' => $id]);
+        return Inertia::render('RealEstate/Edit');
     }
 
     /**

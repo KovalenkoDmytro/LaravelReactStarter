@@ -8,8 +8,8 @@ export default function ParametersCreator({onChange} : {onChange: (newParameters
 
     const html = (
         <div className="inputs__parameter">
-            <TextField id="parameter_name" label="Parameter name" />
-            <TextField id="parameter_value" label="Parameter value" />
+            <TextField required id="parameter_name" label="Parameter name" />
+            <TextField required id="parameter_value" label="Parameter value" />
         </div>
     );
 
