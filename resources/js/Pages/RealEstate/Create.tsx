@@ -1,9 +1,9 @@
 import Authenticated from "@/Layouts/AuthenticatedLayout.tsx";
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import { Editor } from "@tinymce/tinymce-react";
 import ParametersCreator from "@/Components/ParametersCreator.tsx";
 import {toCreate} from "@/utils/helpers.ts";
+import TinyMCEEditor from "@/Components/TinyMCEEditor.tsx";
 
 
 export default function Create() {
@@ -106,32 +106,26 @@ export default function Create() {
 
 
 
-            <Editor
-                apiKey="y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0"
-                init={{
-                    plugins:
-                        "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker",
-                    toolbar:
-                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
-                }}
-                initialValue="Welcome to TinyMCE!"
+            <TinyMCEEditor
+                required={true}
+                label={'Long Description'}
+                initialValue={'long Description'}
                 onEditorChange={(value: string) => {
                     setState("longDescription", value);
                 }}
+                error={!!errors['longDescription']}
+                helperText={errors['longDescription']?? false}
             />
 
-            <Editor
-                apiKey="y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0"
-                init={{
-                    plugins:
-                        "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker",
-                    toolbar:
-                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat",
-                }}
-                initialValue="Short description"
+            <TinyMCEEditor
+                required={true}
+                label={'Short Description'}
+                initialValue={'short Description'}
                 onEditorChange={(value: string) => {
                     setState("shortDescription", value);
                 }}
+                error={!!errors['shortDescription']}
+                helperText={errors['shortDescription']?? false}
             />
 
             <ParametersCreator
