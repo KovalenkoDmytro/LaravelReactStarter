@@ -38,7 +38,6 @@ const routing = {
 
 const  toCreate = async ( url : string, data : object, config = {}) => {
 
-
     const redirect = function (){
         window.location.href = `/${url}`
     }
@@ -66,9 +65,6 @@ const  toCreate = async ( url : string, data : object, config = {}) => {
 
             }
         })
-
-
-
 };
 
 export { toShowNotification, routing, toCreate };

@@ -18,7 +18,16 @@ class RealEstateController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        return Inertia::render('RealEstate/Index');
+        $realEstateModels = RealEstate::all();
+
+        //todo make a service for return models with relation media
+        $realEstateModels->map(function ($realEstate) {
+            $media = $realEstate->getMedia('realEstates');
+
+            return $realEstate['media'] = $media;
+        });
+
+        return Inertia::render('RealEstate/Index', ['realEstates' => $realEstateModels]);
     }
 
     /**
@@ -29,57 +38,65 @@ class RealEstateController extends Controller
         return Inertia::render('RealEstate/Create');
     }
 
+    private function prepareData(array $data): array
+    {
+
+        $preparedData = [...$data, ...$data['address'], 'parameters' => isset($data['parameters']) ? json_encode($data['parameters']) : ''];
+        unset($preparedData['address']);
+
+        if (Arr::exists($data, 'media')) {
+            unset($preparedData['media']);
+        }
+
+        return $preparedData;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRealEstateRequest $request)
+    public function store(StoreRealEstateRequest $request): \Illuminate\Http\JsonResponse
     {
 
-
-//        try {
-//            //todo service for each action
+        try {
+            //            //todo service for each action
 
             $validated = $request->validated();
+            $data = $this->prepareData($validated);
 
-            $validated = [...$validated, ...$validated['address'], 'parameters' =>  isset($validated['parameters'])? json_encode($validated['parameters']) : ''];
-            unset($validated['address']);
+            $realEstateModel = RealEstate::create($data);
 
-            //image logic
-
-            $folderName = Str::replace(' ', '_', $validated['name']);
+            $folderName = Str::replace(' ', '_', $realEstateModel->name);
             $folderName = Str::trim($folderName);
 
-            if(Arr::exists($validated, 'media')){
+            if (Arr::exists($validated, 'media')) {
                 foreach ($validated['media'] as $file) {
 
                     $path = Storage::disk('public')->put('RealEstates/images/'.$folderName, $file['file'], 'public');
-                    debugbar()->addMessage($path);
+
+                    $realEstateModel->addMedia(storage_path('app/public/'.$path))
+                        ->toMediaCollection('realEstates');
+
                 }
-                unset($validated['media']);
-
             }
-                RealEstate::create($validated);
 
-//
-//            return response()->json(
-//                ['message' => 'SuccessResult',
-//                    'type' => 'success',
-//                    'status' => 200,
-//                ]
-//            );
+            //
+            return response()->json(
+                ['message' => 'SuccessResult',
+                    'type' => 'success',
+                    'status' => 200,
+                ]
+            );
 
-//        }
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
 
-//        catch (\Exception $exception) {
-//            Log::error($exception->getMessage());
-//
-//            return response()->json(
-//                ['message' => $exception->getMessage(),
-//                    'type' => 'error',
-//                    'status' => $exception->getCode(),
-//                ]
-//            );
-//        }
+            return response()->json(
+                ['message' => $exception->getMessage(),
+                    'type' => 'error',
+                    'status' => $exception->getCode(),
+                ]
+            );
+        }
 
     }
 
