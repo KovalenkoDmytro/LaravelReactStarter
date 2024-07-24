@@ -139,8 +139,13 @@ export default function Create() {
             />
 
             <button onClick={()=>{
+                const config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
 
-                    toCreate('real-estate', data ).then(errors=>{
+                    toCreate('real-estate', data, config).then(errors=>{
                        if(errors !== undefined){
                            setErrors(() => ({ ...errors }))
                        }

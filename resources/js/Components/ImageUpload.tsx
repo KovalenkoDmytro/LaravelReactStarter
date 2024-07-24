@@ -20,6 +20,7 @@ export default function ImageUpload({onChange} : ImageUploadProps) {
             onChange={(imageList)=>{
                 toChange(imageList)
                 onChange(imageList)
+                console.log(imageList)
             }}
             maxNumber={15}
             dataURLKey="data_url"

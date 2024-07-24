@@ -28,7 +28,8 @@ class StoreRealEstateRequest extends FormRequest
             'longDescription' => ['required', 'string', 'max:1500'],
             'address' => ['required', 'array'],
             'address.*' => ['required', 'string', 'max:255'],
-            'parameters' => ['array'],
+            'parameters' => ['nullable','array'],
+            'media' => ['nullable', 'array'],
         ];
     }
 }

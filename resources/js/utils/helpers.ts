@@ -36,14 +36,14 @@ const routing = {
     },
 }
 
-const  toCreate = async ( url : string, data : object) => {
+const  toCreate = async ( url : string, data : object, config = {}) => {
 
 
     const redirect = function (){
         window.location.href = `/${url}`
     }
 
-    return await axios.post(`/${url}`, {...data}, {})
+    return await axios.post(`/${url}`, {...data}, {...config} )
         .then(response =>{
             toShowNotification({ type: response.data.type, message: response.data.message }, {}, redirect )
         }
