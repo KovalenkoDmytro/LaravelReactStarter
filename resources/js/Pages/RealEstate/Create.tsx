@@ -4,6 +4,7 @@ import { TextField } from "@mui/material";
 import ParametersCreator from "@/Components/ParametersCreator.tsx";
 import {toCreate} from "@/utils/helpers.ts";
 import TinyMCEEditor from "@/Components/TinyMCEEditor.tsx";
+import ImageUpload from "@/Components/ImageUpload.tsx";
 
 
 export default function Create() {
@@ -44,6 +45,9 @@ export default function Create() {
 
     return (
         <Authenticated pageTitle={"Create Real Estate"}>
+            <ImageUpload onChange={(images)=>{
+                setState("media",images)
+            }}/>
             <TextField
                 id="name"
                 label="Name"
