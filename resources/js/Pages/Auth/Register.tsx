@@ -1,121 +1,114 @@
-import { useEffect } from "react";
+import React, { useState } from "react";
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
-import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
+import { Head, Link} from "@inertiajs/react";
+import { toCreate } from "@/utils/helpers.ts";
+import { TextField } from "@mui/material";
 
 export default function Register() {
-    const { data, setData, processing, errors, reset } = useForm({
+    const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
         password_confirmation: "",
     });
 
-    const props = usePage().props
+    const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        return () => {
-            reset("password", "password_confirmation");
+    const toSendData = ()=>{
+        const config = {
+
+            onUploadProgress: () => {
+                document.body.classList.add("__loading");
+            },
         };
-    }, []);
 
-    const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-
-
-        router.post('/register', {
-            _token: props.csrf_token,
-            ...data
-        })
-
-    };
+        toCreate("register", data, config)
+            .then((errors) => {
+                if (errors !== undefined) {
+                    setErrors(() => ({ ...errors }));
+                }
+            })
+            .finally(function () {
+                document.body.classList.remove("__loading");
+            });
+    }
 
     return (
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <label htmlFor="name">Name</label>
+            <TextField
+                id="name"
+                label="name"
+                value={data.name}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({
+                        ...prevState,
+                        name: event.target.value,
+                    }));
+                }}
+                error={!!errors["name"]}
+                helperText={errors["name"] ?? false}
+            />
 
-                    <input
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData("name", e.target.value)}
-                        required
-                    />
+            <TextField
+                id="email"
+                label="email"
+                value={data.email}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({
+                        ...prevState,
+                        email: event.target.value,
+                    }));
+                }}
+                error={!!errors["email"]}
+                helperText={errors["email"] ?? false}
+            />
 
-                    <p>{errors.name}</p>
-                </div>
+            <TextField
+                id="password"
+                label="password"
+                value={data.password}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({
+                        ...prevState,
+                        password: event.target.value,
+                    }));
+                }}
+                error={!!errors["password"]}
+                helperText={errors["password"] ?? false}
+            />
 
-                <div className="mt-4">
-                    <label htmlFor="email">Email</label>
+            <TextField
+                id="password_confirmation"
+                label="password_confirmation"
+                value={data.password_confirmation}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({
+                        ...prevState,
+                        password_confirmation: event.target.value,
+                    }));
+                }}
+                error={!!errors["password_confirmation"]}
+                helperText={errors["password_confirmation"] ?? false}
+            />
 
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData("email", e.target.value)}
-                        required
-                    />
+            <div className="flex items-center justify-end mt-4">
+                <Link
+                    href={"login"}
+                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Already registered?
+                </Link>
 
-                    <p>{errors.email}</p>
-                </div>
-
-                <div className="mt-4">
-                    <label htmlFor="password" >Password</label>
-
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                        required
-                    />
-
-                    <p>{errors.password}</p>
-                </div>
-
-                <div className="mt-4">
-                    <label htmlFor="password_confirmation">Confirm Password </label>
-
-                    <input
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
-                        required
-                    />
-                    <p>{errors.password_confirmation}</p>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={"login"}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <button disabled={processing}>
-                        Register
-                    </button>
-                </div>
-            </form>
+                <button onClick={toSendData}>
+                    Register
+                </button>
+            </div>
         </GuestLayout>
     );
 }

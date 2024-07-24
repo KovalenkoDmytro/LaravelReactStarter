@@ -1,7 +1,6 @@
-.dom {
-    background-color: #ff0000ff;
-}
+@import "abstracts/mixins";
+@import "abstracts/variables";
 
-.test {
-    color: blue;
-}
+@import "base/reset";
+@import "base/main";
+@import "base/typography";

@@ -1,25 +1,22 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import GuestLayout from "@/Layouts/GuestLayout.tsx";
 import { Head, Link, useForm } from "@inertiajs/react";
 import axios from "axios";
 import {routing, toShowNotification} from "@/utils/helpers.ts";
+import {TextField} from "@mui/material";
 
 export default function Login({canResetPassword,}: { canResetPassword: boolean; }) {
 
-    const { data, setData, processing, errors, reset } = useForm({
+    const [data, setData] = useState({
         email: "",
         password: "",
         remember: false,
     });
+    const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        return () => {
-            reset("password");
-        };
-    }, []);
 
-    const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+
+    const toLogIn = () => {
 
         axios
             .post("login", data)
@@ -40,55 +37,49 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
         <GuestLayout>
             <Head title="Log in" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <label htmlFor="email">Email</label>
+            <TextField
+                id="email"
+                label="email"
+                value={data.email}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({ ...prevState, email: event.target.value }));
+                }}
+                error={!!errors['email']}
+                helperText={errors['email']?? false}
+            />
 
-                    <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData("email", e.target.value)}
-                    />
-                    <p>{errors.email}</p>
-                </div>
+            <TextField
+                id="password"
+                label="password"
+                value={data.password}
+                required
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setData((prevState) => ({ ...prevState, password: event.target.value }));
+                }}
+                error={!!errors['password']}
+                helperText={errors['password']?? false}
+            />
 
-                <div className="mt-4">
-                    <label htmlFor="password">Password </label>
 
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
-                    <p>{errors.password}</p>
-                </div>
 
-                <div className="block mt-4">
-                    <label className="flex items-center">
+
+            <label className="flex items-center">
                         <input
                             type="checkbox"
                             id="remember"
                             name="remember"
                             checked={data.remember}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>,
-                            ) => setData("remember", e.target.checked)}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                setData((prevState) => ({ ...prevState, remember: event.target.checked }));
+                            }}
                         />
 
                         <span className="ms-2 text-sm text-gray-600">
                             Remember me
                         </span>
                     </label>
-                </div>
+
 
                 <div className="flex items-center justify-end mt-4">
                     {canResetPassword && (
@@ -100,9 +91,9 @@ export default function Login({canResetPassword,}: { canResetPassword: boolean; 
                         </Link>
                     )}
 
-                    <button disabled={processing}>Log in</button>
+                    <button onClick={toLogIn}>Log in</button>
                 </div>
-            </form>
+
 
             <Link href={routing.setRoute("register")}>Register</Link>
         </GuestLayout>

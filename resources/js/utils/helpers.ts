@@ -45,7 +45,11 @@ const  toCreate = async ( url : string, data : object, config = {}) => {
 
     return await axios.post(`/${url}`, {...data}, {...config} )
         .then(response =>{
-            toShowNotification({ type: response.data.type, message: response.data.message }, {}, redirect )
+            if(response.data.message){
+                toShowNotification({ type: response.data.type, message: response.data.message }, {}, redirect )
+            }else {
+                redirect()
+            }
         }
 
     )
