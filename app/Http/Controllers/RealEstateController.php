@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class RealEstateController extends Controller
@@ -30,7 +29,6 @@ class RealEstateController extends Controller
 
         $realEstates = $this->realEstateService->getRealEstateMedia($realEstateModels);
 
-
         return Inertia::render('RealEstate/Index', ['realEstates' => $realEstates]);
     }
 
@@ -42,19 +40,6 @@ class RealEstateController extends Controller
         return Inertia::render('RealEstate/Create');
     }
 
-    private function prepareData(array $data): array
-    {
-
-        $preparedData = [...$data, ...$data['address'], 'parameters' => isset($data['parameters']) ? json_encode($data['parameters']) : ''];
-        unset($preparedData['address']);
-
-        if (Arr::exists($data, 'media')) {
-            unset($preparedData['media']);
-        }
-
-        return $preparedData;
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -62,28 +47,17 @@ class RealEstateController extends Controller
     {
 
         try {
-            //            //todo service for each action
 
             $validated = $request->validated();
-            $data = $this->prepareData($validated);
+
+            $data = $this->realEstateService->prepareData($validated);
 
             $realEstateModel = RealEstate::create($data);
 
-            $folderName = Str::replace(' ', '_', $realEstateModel->name);
-            $folderName = Str::trim($folderName);
-
             if (Arr::exists($validated, 'media')) {
-                foreach ($validated['media'] as $file) {
-
-                    $path = Storage::disk('public')->put('RealEstates/images/'.$folderName, $file['file'], 'public');
-
-                    $realEstateModel->addMedia(storage_path('app/public/'.$path))
-                        ->toMediaCollection('realEstates');
-
-                }
+                $this->realEstateService->setRealEstateMedia($validated['media'], $realEstateModel);
             }
 
-            //
             return response()->json(
                 ['message' => 'SuccessResult',
                     'type' => 'success',
