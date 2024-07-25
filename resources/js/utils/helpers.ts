@@ -67,4 +67,10 @@ const  toCreate = async ( url : string, data : object, config = {}) => {
         })
 };
 
-export { toShowNotification, routing, toCreate };
+const toGetData = async (url : string, object, config = {}) => {
+    const response = await axios.get(`/${url}`,{...config});
+
+    return response.data;
+};
+
+export { toShowNotification, routing, toCreate, toGetData };

@@ -103,9 +103,9 @@ class RealEstateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RealEstate $realEstate)
+    public function show(RealEstate $realEstate): \Inertia\Response
     {
-        return Inertia::render('RealEstate/Show');
+        return Inertia::render('RealEstate/Show', ['realEstate' => $realEstate]);
     }
 
     /**
