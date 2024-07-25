@@ -31,15 +31,13 @@ class RealEstateService implements IRealEstateService
      */
     public function setRealEstateMedia(array $mediaFiles, RealEstate $realEstateModel): void
     {
-        $folderName = Str::replace(' ', '_', $realEstateModel->name);
-        $folderName = Str::trim($folderName);
 
         foreach ($mediaFiles as $file) {
 
-            $path = Storage::disk('public')->put('RealEstates/images/'.$folderName, $file['file'], 'public');
+            $estateFolder = Str::replace(' ', '_', $realEstateModel->name);
 
-            $realEstateModel->addMedia(storage_path('app/public/'.$path))
-                ->toMediaCollection('realEstates');
+            $realEstateModel->addMedia($file['file'])
+                ->toMediaCollection('RealEstates\\'.$estateFolder);
 
         }
 
