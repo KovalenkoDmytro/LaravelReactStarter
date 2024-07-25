@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRealEstateRequest;
+use App\Interfaces\Services\IRealEstateService;
 use App\Models\RealEstate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -13,6 +14,13 @@ use Inertia\Inertia;
 
 class RealEstateController extends Controller
 {
+    private IRealEstateService $realEstateService;
+
+    public function __construct(IRealEstateService $service)
+    {
+        $this->realEstateService = $service;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,14 +28,10 @@ class RealEstateController extends Controller
     {
         $realEstateModels = RealEstate::all();
 
-        //todo make a service for return models with relation media
-        $realEstateModels->map(function ($realEstate) {
-            $media = $realEstate->getMedia('realEstates');
+        $realEstates = $this->realEstateService->getRealEstateMedia($realEstateModels);
 
-            return $realEstate['media'] = $media;
-        });
 
-        return Inertia::render('RealEstate/Index', ['realEstates' => $realEstateModels]);
+        return Inertia::render('RealEstate/Index', ['realEstates' => $realEstates]);
     }
 
     /**
