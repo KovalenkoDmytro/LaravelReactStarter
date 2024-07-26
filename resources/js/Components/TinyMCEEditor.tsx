@@ -24,7 +24,7 @@ export default function TinyMCEEditor({
             {helperText ?? <p>{helperText}</p>}
 
             <Editor
-                apiKey="y8o12no2fgwj8bpkyxo3w74xk3pard61wd1k4ck3l7te2zs0"
+                apiKey={import.meta.env.VITE_TINY_EDITOR_KEY}
                 init={{
                     plugins:
                         "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker",

@@ -23,7 +23,6 @@ export default function Create() {
     });
     const [errors, setErrors] = useState({});
 
-
     const setState = (
         name: string,
         value: string | [],
@@ -38,10 +37,6 @@ export default function Create() {
             setData((prevState) => ({ ...prevState, [name]: value }));
         }
     };
-
-
-
-    //todo images , file loader
 
     return (
         <Authenticated pageTitle={"Create Real Estate"}>
